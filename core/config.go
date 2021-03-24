@@ -84,19 +84,10 @@ func LoadConfig(formatName string, input interface{}) (*Config, error) {
 		formats := make([]string, len(v))
 		hasProtobuf := false
 		for i, file := range v {
-			var f string
-
-			if formatName == "auto" {
-				f = getFormat(file)
-				if f == "" {
-					return nil, newError("Unable to get format of", formatName).AtWarning()
-				}
-			}
-
+			f := getFormat(file)
 			if f == "" {
 				f = formatName
 			}
-
 			if f == "protobuf" {
 				hasProtobuf = true
 			}
